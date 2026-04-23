@@ -1,0 +1,208 @@
+:root {
+  /* Colors - Light Mode (Technical Paper) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #f1f3f5;
+  
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #868e96;
+  
+  --border-subtle: #e9ecef;
+  --border-strong: #dee2e6;
+  
+  --accent: #495057; /* Default Grey */
+  --accent-muted: rgba(73, 80, 87, 0.1);
+  
+  --mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --grid-unit: 8px;
+  --container-max: 1200px;
+}
+
+[data-theme='dark'] {
+  /* Colors - Dark Mode (Deep Technical) */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #141414;
+  --bg-tertiary: #1c1c1c;
+  
+  --text-primary: #f8f9fa;
+  --text-secondary: #adb5bd;
+  --text-muted: #495057;
+  
+  --border-subtle: #252525;
+  --border-strong: #333333;
+  
+  --accent: #adb5bd; /* Neutral Light Grey */
+  --accent-muted: rgba(173, 181, 189, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.technical-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--grid-unit);
+  max-width: var(--container-max);
+  margin: 0 auto;
+  width: 100%;
+  padding: calc(var(--grid-unit) * 4);
+}
+
+h1, h2, h3, h4 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.mono {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  letter-spacing: -0.01em;
+}
+
+.border-box {
+  border: 1px solid var(--border-subtle);
+  padding: calc(var(--grid-unit) * 2);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-text-accent {
+  transition: color 0.2s ease;
+}
+
+.hover-text-accent:hover {
+  color: var(--accent) !important;
+}
+
+.technical-link {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.technical-link:hover {
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: 1px solid var(--border-strong);
+  color: var(--text-primary);
+  font-family: var(--mono);
+  padding: calc(var(--grid-unit)) calc(var(--grid-unit) * 2);
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--accent);
+}
+
+/* Responsive Grid Utilities */
+.grid-span-1 { grid-column: span 1; }
+.grid-span-2 { grid-column: span 2; }
+.grid-span-3 { grid-column: span 3; }
+.grid-span-4 { grid-column: span 4; }
+.grid-span-5 { grid-column: span 5; }
+.grid-span-6 { grid-column: span 6; }
+.grid-span-7 { grid-column: span 7; }
+.grid-span-8 { grid-column: span 8; }
+.grid-span-9 { grid-column: span 9; }
+.grid-span-10 { grid-column: span 10; }
+.grid-span-11 { grid-column: span 11; }
+.grid-span-12 { grid-column: span 12; }
+
+/* Mobile optimization classes */
+.hero-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--grid-unit);
+}
+
+@media (max-width: 1024px) {
+  .technical-grid {
+    padding: calc(var(--grid-unit) * 3);
+  }
+  
+  .tablet-span-12 { grid-column: span 12 !important; }
+  .tablet-span-6 { grid-column: span 6 !important; }
+}
+
+@media (max-width: 768px) {
+  .technical-grid {
+    padding: calc(var(--grid-unit) * 2);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .mobile-span-12 { grid-column: span 12 !important; }
+  
+  h1 { font-size: 2.5rem !important; }
+  h2 { font-size: 1.5rem !important; }
+  
+  .hide-mobile { display: none !important; }
+  
+  .border-box {
+    padding: calc(var(--grid-unit) * 1.5);
+  }
+
+  .hero-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+  }
+
+  .blog-modal, .project-modal {
+    padding: 20px !important;
+  }
+}
+
+.blog-modal, .project-modal {
+  padding: 40px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}

@@ -1,0 +1,148 @@
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Terminal, X } from 'lucide-react';
+import PixelCard from '../components/PixelCard';
+import DecryptedText from '../components/DecryptedText';
+
+const PROJECTS = [
+  {
+    id: 'p1',
+    title: 'seiko',
+    description: 'Material expressive YouTube media downloader app for Android.',
+    longDescription: 'A multi-platform media downloader built with Flutter/Dart. It features a modern Material You design and supports Android, Linux, Windows, and iOS. Focused on performance and a high-quality user experience.',
+    tech: ['Dart', 'Flutter', 'Android', 'Media'],
+    links: { github: 'https://github.com/Hotaro26/seiko' }
+  },
+  {
+    id: 'p2',
+    title: 'chrono-zen',
+    description: 'Productivity web-app for managing to-dos and pomodoro timers.',
+    longDescription: 'A clean and efficient productivity suite that integrates task management with a Pomodoro timer. Built with TypeScript to ensure type safety and high performance across browsers.',
+    tech: ['TypeScript', 'React', 'Tailwind', 'Productivity'],
+    links: { github: 'https://github.com/Hotaro26/chrono-zen' }
+  },
+  {
+    id: 'p3',
+    title: 'opencv-to-ascii',
+    description: 'OpenCV project that converts webcam live capture to ASCII art.',
+    longDescription: 'A real-time computer vision project that processes webcam video frames and converts them into dynamic ASCII art. Leverages OpenCV and Python for efficient image processing.',
+    tech: ['Python', 'OpenCV', 'ASCII Art', 'CV'],
+    links: { github: 'https://github.com/Hotaro26/opencv-to-ascii-live-art-' }
+  }
+];
+
+export const Projects = () => {
+  const [selected, setSelected] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (selected) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [selected]);
+
+  return (
+    <section className="technical-grid" style={{ borderBottom: '1px solid var(--border-subtle)', paddingBottom: '64px' }}>
+      <div style={{ gridColumn: '1 / span 12', margin: '32px 0' }}>
+        <h2 className="mono" style={{ fontSize: '12px', color: 'var(--text-muted)' }}>[ 02: PINNED_REPOSITORIES ]</h2>
+      </div>
+
+      {PROJECTS.map((project) => (
+        <div key={project.id} className="grid-span-4 tablet-span-12">
+          <PixelCard variant="pink" speed={20} gap={6} noFocus={false}>
+            <motion.div
+              style={{ padding: '24px', cursor: 'pointer', height: '100%' }}
+              onClick={() => setSelected(project.id)}
+              whileHover={{ 
+                y: -4, 
+                background: 'rgba(255, 255, 255, 0.05)',
+              }}
+            >
+              <div className="mono" style={{ fontSize: '10px', color: 'var(--text-muted)', marginBottom: '8px' }}>
+                ID_{project.id.toUpperCase()}
+              </div>
+              <h3 style={{ marginBottom: '12px' }}>
+                <DecryptedText 
+                  text={project.title}
+                  animateOn="view"
+                  speed={180}
+                  className="revealed"
+                  encryptedClassName="encrypted"
+                />
+              </h3>
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '16px' }}>
+                {project.description}
+              </p>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                {project.tech.map(t => (
+                  <span key={t} className="mono" style={{ fontSize: '10px', background: 'var(--bg-tertiary)', padding: '2px 6px' }}>
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          </PixelCard>
+        </div>
+      ))}
+
+      <AnimatePresence>
+        {selected && (
+          <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 101 }}>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              onClick={() => setSelected(null)}
+              style={{
+                position: 'absolute',
+                top: 0, left: 0, right: 0, bottom: 0,
+                background: 'rgba(0,0,0,0.8)',
+                backdropFilter: 'blur(4px)',
+                cursor: 'zoom-out'
+              }}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="border-box project-modal"
+              style={{
+                width: '90%',
+                maxWidth: '700px',
+                background: 'var(--bg-primary)',
+                position: 'relative',
+                zIndex: 102,
+                boxShadow: '0 20px 50px rgba(0,0,0,0.3)'
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
+                <div>
+                  <div className="mono" style={{ fontSize: '10px', color: 'var(--accent)', marginBottom: '8px' }}>
+                    [ REPO_SPECS ]
+                  </div>
+                  <h3 style={{ fontSize: '2rem' }}>{PROJECTS.find(p => p.id === selected)?.title}</h3>
+                </div>
+                <button onClick={() => setSelected(null)} style={{ border: 'none', padding: '8px' }}>
+                  <X size={20} />
+                </button>
+              </div>
+
+              <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: 1.6 }}>
+                {PROJECTS.find(p => p.id === selected)?.longDescription}
+              </p>
+
+              <div style={{ display: 'flex', gap: '16px', borderTop: '1px solid var(--border-subtle)', paddingTop: '24px' }}>
+                <a href={PROJECTS.find(p => p.id === selected)?.links.github} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                  <button className="mono" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px' }}>
+                    <Terminal size={14} /> GITHUB_REPO
+                  </button>
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+};
