@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { ThemeToggle } from './components/ThemeToggle';
 import { AccentPicker } from './components/AccentPicker';
 import { ScrollToTop } from './components/ScrollToTop';
+import { WelcomePopup } from './components/WelcomePopup';
+import { LeftPopup } from './components/LeftPopup';
 import { Archive } from 'lucide-react';
 import { Hero } from './sections/Hero';
 import { Skills } from './sections/Skills';
@@ -72,6 +74,8 @@ function App() {
         spinDuration={8}
       />
       <ScrollToTop />
+      <WelcomePopup />
+      {currentView === 'home' && <LeftPopup />}
       
       <header style={{ 
         height: 'auto',
