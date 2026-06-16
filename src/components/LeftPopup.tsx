@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
 import sticker1 from '../assets/left-sticker-1.png';
 import sticker2 from '../assets/left-sticker-2.png';
 import sticker3 from '../assets/left-sticker-3.png';
