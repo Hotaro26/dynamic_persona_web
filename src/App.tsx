@@ -6,6 +6,7 @@ import { ScrollToTop } from './components/ScrollToTop';
 import { WelcomePopup } from './components/WelcomePopup';
 import { LeftPopup } from './components/LeftPopup';
 import { ConfirmModal } from './components/ConfirmModal';
+import { LoadingScreen } from './components/LoadingScreen';
 import { Archive, ImageOff, Image } from 'lucide-react';
 import { Hero } from './sections/Hero';
 import { Skills } from './sections/Skills';
@@ -31,6 +32,7 @@ function App() {
     return typeof window !== 'undefined' ? window.innerWidth > 768 : true;
   });
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const toggleStickers = () => {
     if (stickersEnabled) {
@@ -58,7 +60,13 @@ function App() {
   }, []);
 
   return (
-    <div style={{ background: 'var(--bg-primary)', minHeight: '100vh', transition: 'background-color 0.3s ease', position: 'relative' }}>
+    <>
+      <AnimatePresence mode="wait">
+        {isLoading && <LoadingScreen key="loading" onComplete={() => setIsLoading(false)} />}
+      </AnimatePresence>
+
+      {!isLoading && (
+        <div style={{ background: 'var(--bg-primary)', minHeight: '100vh', transition: 'background-color 0.3s ease', position: 'relative' }}>
       {terminalEnabled && (
         <div style={{ 
           position: 'fixed', 
@@ -251,6 +259,8 @@ function App() {
         </div>
       </footer>
     </div>
+      )}
+    </>
   );
 }
 
