@@ -73,9 +73,16 @@ export const Projects = () => {
         <h2 className="mono" style={{ fontSize: '12px', color: 'var(--text-muted)' }}>[ 02: PINNED_REPOSITORIES ]</h2>
       </div>
 
-      {PROJECTS.map((project) => (
-        <div key={project.id} className="grid-span-4 tablet-span-12">
-          <PixelCard variant="pink" speed={20} gap={6} noFocus={false}>
+      {PROJECTS.map((project, index) => {
+        let borderRadius = '4px';
+        if (index === 0) borderRadius = '24px 4px 4px 4px';
+        else if (index === 2) borderRadius = '4px 24px 4px 4px';
+        else if (index === 3) borderRadius = '4px 4px 4px 24px';
+        else if (index === 5) borderRadius = '4px 4px 24px 4px';
+
+        return (
+          <div key={project.id} className="grid-span-4 tablet-span-12">
+            <PixelCard variant="pink" speed={20} gap={6} noFocus={false} style={{ borderRadius }}>
             <motion.div
               style={{ padding: '24px', cursor: 'pointer', height: '100%' }}
               onClick={() => setSelected(project.id)}
@@ -109,7 +116,8 @@ export const Projects = () => {
             </motion.div>
           </PixelCard>
         </div>
-      ))}
+        );
+      })}
 
       <AnimatePresence>
         {selected && (

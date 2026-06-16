@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Book, X, Loader2, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowUpRight, Book, X, Loader2, ChevronDown, ChevronUp, Home } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkFrontmatter from 'remark-frontmatter';
 import rehypeRaw from 'rehype-raw';
 import { fetchLatestBlogs, fetchPostContent } from '../services/BlogService';
 import type { BlogPost } from '../services/BlogService';
+import archiveSticker from '../assets/contact-sticker-3.png';
 
-export const Blogs = () => {
+export const Blogs = ({ onGoHome }: { onGoHome?: () => void }) => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [selected, setSelected] = useState<BlogPost | null>(null);
   const [content, setContent] = useState<string>('');
@@ -37,15 +38,86 @@ export const Blogs = () => {
   const displayedPosts = showAll ? posts : posts.slice(0, 3);
 
   return (
-    <section className="technical-grid" style={{ paddingBottom: '64px' }}>
-      <div style={{ gridColumn: '1 / span 12', margin: '32px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <section className="technical-grid" style={{ paddingBottom: '64px', position: 'relative' }}>
+      <div style={{ position: 'fixed', bottom: '0px', left: '20px', zIndex: 0, display: 'flex', alignItems: 'flex-end', gap: '24px' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ type: 'spring', stiffness: 200, delay: 1.5 }}
+          className="mono"
+          style={{
+            position: 'absolute',
+            bottom: '220px',
+            left: '150px',
+            background: 'var(--bg-secondary)',
+            color: 'var(--text-primary)',
+            padding: '12px 16px',
+            borderRadius: '16px 16px 16px 0px',
+            border: '1px solid var(--border-subtle)',
+            borderLeft: '3px solid var(--accent)',
+            fontSize: '11px',
+            lineHeight: 1.5,
+            maxWidth: '200px',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+            zIndex: 10,
+            pointerEvents: 'none'
+          }}
+        >
+          Fascinating reading, I know. But when you're done digging up the past, the home button is right there.
+        </motion.div>
+        
+        <motion.img 
+          src={archiveSticker} 
+          alt="Archive Character" 
+          initial={{ opacity: 0, x: -50, filter: 'grayscale(100%)' }}
+          animate={{ opacity: 1, x: 0, filter: 'grayscale(100%)' }}
+          transition={{ type: 'spring', stiffness: 200, delay: 0.2, filter: { duration: 0.3 } }}
+          whileHover={{ scale: 1.05, rotate: 2, filter: 'grayscale(0%)' }}
+          style={{
+            width: '280px',
+            objectFit: 'contain',
+            pointerEvents: 'auto',
+            cursor: 'pointer'
+          }}
+        />
+        {onGoHome && (
+          <motion.button
+            onClick={onGoHome}
+            whileHover={{ y: -4, backgroundColor: 'var(--accent)', color: 'var(--bg-primary)' }}
+            whileTap={{ scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: 'spring', stiffness: 200, delay: 0.4 }}
+            style={{
+              marginBottom: '40px',
+              padding: '16px',
+              borderRadius: '50%',
+              backgroundColor: 'var(--bg-tertiary)',
+              color: 'var(--text-primary)',
+              border: '1px solid var(--border-subtle)',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
+              pointerEvents: 'auto',
+              transition: 'color 0.2s ease, background-color 0.2s ease'
+            }}
+            title="Return Home"
+          >
+            <Home size={28} />
+          </motion.button>
+        )}
+      </div>
+
+      <div style={{ gridColumn: '1 / span 12', margin: '32px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', zIndex: 1 }}>
         <h2 className="mono" style={{ fontSize: '12px', color: 'var(--text-muted)' }}>[ 04: DIGI_DIARY_ENTRIES ]</h2>
         <a href="https://github.com/Hotaro26/digi-diary" target="_blank" rel="noopener noreferrer" className="mono" style={{ fontSize: '10px', color: 'var(--accent)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}>
           <Book size={10} /> SOURCE: DIGI-DIARY.git
         </a>
       </div>
 
-      <div style={{ gridColumn: '1 / span 12', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div style={{ gridColumn: '1 / span 12', display: 'flex', flexDirection: 'column', gap: '8px', position: 'relative', zIndex: 1 }}>
         <AnimatePresence initial={false}>
           {displayedPosts.map((post, idx) => (
             <motion.div
@@ -89,7 +161,7 @@ export const Blogs = () => {
       </div>
 
       {posts.length > 3 && (
-        <div style={{ gridColumn: '1 / span 12', marginTop: '24px', textAlign: 'center' }}>
+        <div style={{ gridColumn: '1 / span 12', marginTop: '24px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
           <button 
             onClick={() => setShowAll(!showAll)}
             className="mono" 

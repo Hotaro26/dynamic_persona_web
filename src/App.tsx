@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ThemeToggle } from './components/ThemeToggle';
 import { AccentPicker } from './components/AccentPicker';
+import { ScrollToTop } from './components/ScrollToTop';
+import { Archive } from 'lucide-react';
 import { Hero } from './sections/Hero';
 import { Skills } from './sections/Skills';
 import { Projects } from './sections/Projects';
@@ -21,6 +23,7 @@ function App() {
   const [theme] = useState(() => {
     return localStorage.getItem('theme') || 'light';
   });
+  const [currentView, setCurrentView] = useState<'home' | 'archive'>('home');
 
   useEffect(() => {
     const handleToggle = (e: any) => setTerminalEnabled(e.detail);
@@ -68,6 +71,8 @@ function App() {
         targetSelector=".cursor-target, button, a, .border-box, .pixel-card" 
         spinDuration={8}
       />
+      <ScrollToTop />
+      
       <header style={{ 
         height: 'auto',
         minHeight: '80px',
@@ -88,8 +93,9 @@ function App() {
         }}>
           <div className="grid-span-3 tablet-span-4 mobile-span-12" style={{ display: 'flex', alignItems: 'center', height: '80px' }}>
             <motion.span 
+              onClick={() => setCurrentView('home')}
               whileHover={{ color: 'var(--accent)' }}
-              className="mono" 
+              className="mono cursor-target" 
               style={{ fontWeight: 700, fontSize: '16px', letterSpacing: '-0.05em', cursor: 'pointer', transition: 'color 0.2s' }}
             >
               hotaro
@@ -104,8 +110,35 @@ function App() {
           }}>
             <AccentPicker />
             <ThemeToggle />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <motion.button 
+                onClick={() => {
+                  setCurrentView('archive');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                whileHover={{ scale: 1.1, color: 'var(--accent)' }}
+                className="cursor-target"
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: currentView === 'archive' ? 'var(--accent)' : 'var(--text-primary)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  transition: 'color 0.2s ease',
+                  padding: '8px'
+                }}
+                title="Archive"
+              >
+                <Archive size={20} />
+              </motion.button>
+            </div>
             <motion.button 
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => {
+                setCurrentView('home');
+                setTimeout(() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }), 100);
+              }}
               whileHover={{ y: -2, background: 'var(--accent)', color: 'var(--bg-primary)' }}
               className="mono cursor-target"
               style={{
@@ -128,12 +161,22 @@ function App() {
       </header>
 
       <main style={{ position: 'relative', zIndex: 1 }}>
-        <Hero />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Blogs />
-        <Contact />
+        {currentView === 'home' ? (
+          <>
+            <Hero />
+            <Skills />
+            <Projects />
+            <Experience />
+            <Contact />
+          </>
+        ) : (
+          <div style={{ paddingTop: '64px', minHeight: '60vh' }}>
+            <Blogs onGoHome={() => {
+              setCurrentView('home');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }} />
+          </div>
+        )}
       </main>
 
       <footer style={{ 
