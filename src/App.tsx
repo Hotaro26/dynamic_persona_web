@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ThemeToggle } from './components/ThemeToggle';
 import { AccentPicker } from './components/AccentPicker';
-import { TerminalToggle } from './components/TerminalToggle';
 import { Hero } from './sections/Hero';
 import { Skills } from './sections/Skills';
 import { Projects } from './sections/Projects';
 import { Blogs } from './sections/Blogs';
 import { Experience } from './sections/Experience';
+import { Contact } from './sections/Contact';
 import TargetCursor from './components/TargetCursor';
 import FaultyTerminal from './components/FaultyTerminal';
 
@@ -103,8 +103,26 @@ function App() {
             height: '80px' 
           }}>
             <AccentPicker />
-            <TerminalToggle />
             <ThemeToggle />
+            <motion.button 
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              whileHover={{ y: -2, background: 'var(--accent)', color: 'var(--bg-primary)' }}
+              className="mono cursor-target"
+              style={{
+                background: 'var(--bg-tertiary)',
+                color: 'var(--text-primary)',
+                border: '1px solid var(--border-subtle)',
+                borderRadius: '100px',
+                padding: '8px 20px',
+                fontSize: '12px',
+                fontWeight: 600,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                textTransform: 'uppercase'
+              }}
+            >
+              Contact Me
+            </motion.button>
           </div>
         </div>
       </header>
@@ -115,6 +133,7 @@ function App() {
         <Projects />
         <Experience />
         <Blogs />
+        <Contact />
       </main>
 
       <footer style={{ 

@@ -28,6 +28,30 @@ const PROJECTS = [
     longDescription: 'A real-time computer vision project that processes webcam video frames and converts them into dynamic ASCII art. Leverages OpenCV and Python for efficient image processing.',
     tech: ['Python', 'OpenCV', 'ASCII Art', 'CV'],
     links: { github: 'https://github.com/Hotaro26/opencv-to-ascii-live-art-' }
+  },
+  {
+    id: 'p4',
+    title: 'gabi',
+    description: 'All in one media/image downloader app based on yt-dlp and gallery-dl.',
+    longDescription: 'An all-in-one media and image downloader app powered by yt-dlp and gallery-dl Python libraries. Features a sleek Material Expressive 3 UI for a highly fluid user experience.',
+    tech: ['Kotlin', 'Android', 'Media', 'Downloader'],
+    links: { github: 'https://github.com/Hotaro26/gabi' }
+  },
+  {
+    id: 'p5',
+    title: 'gorbit',
+    description: 'An open source social media platform without any brain rot, ads or trackers.',
+    longDescription: 'An open-source social media platform built for meaningful connections without brain rot, intrusive ads, or trackers. Built using TypeScript for a seamless and secure experience.',
+    tech: ['TypeScript', 'Social Media', 'Web', 'Open Source'],
+    links: { github: 'https://github.com/Hotaro26/gorbit' }
+  },
+  {
+    id: 'p6',
+    title: 'miko',
+    description: 'A manga reader app built purely with kotlin and jetpack compose.',
+    longDescription: 'A native Android manga reader app built entirely with Kotlin and Jetpack Compose. It features the latest Material Expressive 3 UI and seamless AniList tracker integration.',
+    tech: ['Kotlin', 'Jetpack Compose', 'Android', 'Manga'],
+    links: { github: 'https://github.com/Hotaro26/miko' }
   }
 ];
 
