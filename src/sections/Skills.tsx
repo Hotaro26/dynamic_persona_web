@@ -40,7 +40,7 @@ export const Skills = () => {
               <DecryptedText 
                 text={group.category} 
                 animateOn="view" 
-                speed={180} 
+                speed={40} 
               />
             </div>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '4px' }}>

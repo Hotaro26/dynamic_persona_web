@@ -45,7 +45,7 @@ export const Experience = () => {
                 <DecryptedText 
                   text={item.role}
                   animateOn="view"
-                  speed={180}
+                  speed={40}
                   className="revealed"
                   encryptedClassName="encrypted"
                 />

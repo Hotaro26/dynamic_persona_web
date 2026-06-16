@@ -98,7 +98,7 @@ export const Projects = () => {
                 <DecryptedText 
                   text={project.title}
                   animateOn="view"
-                  speed={180}
+                  speed={40}
                   className="revealed"
                   encryptedClassName="encrypted"
                 />

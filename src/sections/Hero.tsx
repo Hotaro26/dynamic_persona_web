@@ -31,7 +31,7 @@ export const Hero = () => {
               text="Hotaro" 
               animateOn="view" 
               revealDirection="center" 
-              speed={180}
+              speed={40}
               className="revealed"
               encryptedClassName="encrypted"
             /> <br />

@@ -94,7 +94,7 @@ export const Contact = () => {
             zIndex: 1,
             width: '100%'
           }}>
-            <div style={{ flex: '1 1 250px', display: 'flex', justifyContent: 'center', position: 'relative' }}>
+            <div className="contact-image-wrapper" style={{ flex: '1 1 320px', display: 'flex', justifyContent: 'center', position: 'relative' }}>
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`dialog-${currentThoughtIndex}`}
@@ -133,8 +133,7 @@ export const Contact = () => {
                   initial={{ filter: 'grayscale(100%)', opacity: 0, scale: 0.9 }}
                   animate={{ filter: 'grayscale(100%)', opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
-                  style={{ width: '100%', maxWidth: '250px', objectFit: 'contain', cursor: 'pointer' }}
-                  whileHover={{ scale: 1.05, rotate: -2, filter: 'grayscale(0%)' }}
+                  style={{ width: '100%', maxWidth: '320px', objectFit: 'contain', cursor: 'default' }}
                   transition={{ type: 'spring', stiffness: 300, filter: { duration: 0.3 } }}
                 />
               </AnimatePresence>
@@ -201,6 +200,15 @@ export const Contact = () => {
           </div>
         </motion.div>
       </div>
+      <style>{`
+        @media (min-width: 768px) {
+          .contact-image-wrapper {
+            margin-bottom: -60px;
+            align-self: flex-end;
+            align-items: flex-end;
+          }
+        }
+      `}</style>
     </section>
   );
 };
