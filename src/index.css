@@ -205,6 +205,10 @@ button:hover {
     display: none !important;
   }
 
+  .loading-sticker {
+    display: none !important;
+  }
+
   .confirm-modal {
     padding: 24px !important;
   }
