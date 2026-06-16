@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeToggle } from './components/ThemeToggle';
 import { AccentPicker } from './components/AccentPicker';
 import { ScrollToTop } from './components/ScrollToTop';
