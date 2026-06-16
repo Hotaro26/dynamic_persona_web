@@ -5,7 +5,8 @@ import { AccentPicker } from './components/AccentPicker';
 import { ScrollToTop } from './components/ScrollToTop';
 import { WelcomePopup } from './components/WelcomePopup';
 import { LeftPopup } from './components/LeftPopup';
-import { Archive } from 'lucide-react';
+import { ConfirmModal } from './components/ConfirmModal';
+import { Archive, ImageOff, Image } from 'lucide-react';
 import { Hero } from './sections/Hero';
 import { Skills } from './sections/Skills';
 import { Projects } from './sections/Projects';
@@ -26,6 +27,18 @@ function App() {
     return localStorage.getItem('theme') || 'light';
   });
   const [currentView, setCurrentView] = useState<'home' | 'archive'>('home');
+  const [stickersEnabled, setStickersEnabled] = useState(() => {
+    return typeof window !== 'undefined' ? window.innerWidth > 768 : true;
+  });
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+
+  const toggleStickers = () => {
+    if (stickersEnabled) {
+      setIsConfirmModalOpen(true);
+    } else {
+      setStickersEnabled(true);
+    }
+  };
 
   useEffect(() => {
     const handleToggle = (e: any) => setTerminalEnabled(e.detail);
@@ -74,8 +87,16 @@ function App() {
         spinDuration={8}
       />
       <ScrollToTop />
-      <WelcomePopup />
-      {currentView === 'home' && <LeftPopup />}
+      {stickersEnabled && <WelcomePopup />}
+      {stickersEnabled && currentView === 'home' && <LeftPopup />}
+      <ConfirmModal 
+        isOpen={isConfirmModalOpen} 
+        onConfirm={() => {
+          setStickersEnabled(false);
+          setIsConfirmModalOpen(false);
+        }} 
+        onCancel={() => setIsConfirmModalOpen(false)} 
+      />
       
       <header style={{ 
         height: 'auto',
@@ -95,7 +116,7 @@ function App() {
           width: '100%',
           alignItems: 'center'
         }}>
-          <div className="grid-span-3 tablet-span-4 mobile-span-12" style={{ display: 'flex', alignItems: 'center', height: '80px' }}>
+          <div className="grid-span-3 tablet-span-4 mobile-span-12 logo-container" style={{ display: 'flex', alignItems: 'center', height: '80px' }}>
             <motion.span 
               onClick={() => setCurrentView('home')}
               whileHover={{ color: 'var(--accent)' }}
@@ -105,7 +126,7 @@ function App() {
               hotaro
             </motion.span>
           </div>
-          <div className="grid-span-9 tablet-span-8 mobile-span-12" style={{ 
+          <div className="grid-span-9 tablet-span-8 mobile-span-12 header-actions" style={{ 
             display: 'flex', 
             justifyContent: 'flex-end', 
             alignItems: 'center', 
@@ -115,6 +136,26 @@ function App() {
             <AccentPicker />
             <ThemeToggle />
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <motion.button 
+                onClick={toggleStickers}
+                whileHover={{ scale: 1.1, color: 'var(--accent)' }}
+                className="cursor-target"
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: stickersEnabled ? 'var(--text-primary)' : 'var(--text-muted)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  transition: 'color 0.2s ease',
+                  padding: '8px'
+                }}
+                title={stickersEnabled ? "Disable Characters" : "Enable Characters"}
+              >
+                {stickersEnabled ? <ImageOff size={20} /> : <Image size={20} />}
+              </motion.button>
+
               <motion.button 
                 onClick={() => {
                   setCurrentView('archive');
@@ -175,10 +216,13 @@ function App() {
           </>
         ) : (
           <div style={{ paddingTop: '64px', minHeight: '60vh' }}>
-            <Blogs onGoHome={() => {
-              setCurrentView('home');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }} />
+            <Blogs 
+              stickersEnabled={stickersEnabled}
+              onGoHome={() => {
+                setCurrentView('home');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }} 
+            />
           </div>
         )}
       </main>

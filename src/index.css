@@ -187,6 +187,27 @@ button:hover {
   .blog-modal, .project-modal {
     padding: 20px !important;
   }
+
+  .logo-container {
+    height: 40px !important;
+    justify-content: center;
+  }
+
+  .header-actions {
+    height: auto !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    flex-wrap: wrap;
+    padding-bottom: 16px;
+  }
+
+  .confirm-img {
+    display: none !important;
+  }
+
+  .confirm-modal {
+    padding: 24px !important;
+  }
 }
 
 .blog-modal, .project-modal {

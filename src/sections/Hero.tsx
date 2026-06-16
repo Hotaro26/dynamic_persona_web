@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import BlurText from '../components/BlurText';
 import DecryptedText from '../components/DecryptedText';
 
-const ROLES = ['An Artist.', 'A Student.', 'A Nerd.', 'Building & Learning.'];
+const ROLES = ['An Artist.', 'A Stud.', 'A Nerd.', 'Building & Learning.', 'Open for collaboration.', 'Available for hiring.'];
 
 export const Hero = () => {
   const [roleIndex, setRoleIndex] = useState(0);

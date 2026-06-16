@@ -9,7 +9,7 @@ import { fetchLatestBlogs, fetchPostContent } from '../services/BlogService';
 import type { BlogPost } from '../services/BlogService';
 import archiveSticker from '../assets/contact-sticker-3.png';
 
-export const Blogs = ({ onGoHome }: { onGoHome?: () => void }) => {
+export const Blogs = ({ onGoHome, stickersEnabled = true }: { onGoHome?: () => void, stickersEnabled?: boolean }) => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [selected, setSelected] = useState<BlogPost | null>(null);
   const [content, setContent] = useState<string>('');
@@ -40,46 +40,57 @@ export const Blogs = ({ onGoHome }: { onGoHome?: () => void }) => {
   return (
     <section className="technical-grid" style={{ paddingBottom: '64px', position: 'relative' }}>
       <div style={{ position: 'fixed', bottom: '0px', left: '20px', zIndex: 0, display: 'flex', alignItems: 'flex-end', gap: '24px' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 20, scale: 0.8 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ type: 'spring', stiffness: 200, delay: 1.5 }}
-          className="mono"
-          style={{
-            position: 'absolute',
-            bottom: '220px',
-            left: '150px',
-            background: 'var(--bg-secondary)',
-            color: 'var(--text-primary)',
-            padding: '12px 16px',
-            borderRadius: '16px 16px 16px 0px',
-            border: '1px solid var(--border-subtle)',
-            borderLeft: '3px solid var(--accent)',
-            fontSize: '11px',
-            lineHeight: 1.5,
-            maxWidth: '200px',
-            boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
-            zIndex: 10,
-            pointerEvents: 'none'
-          }}
-        >
-          Fascinating reading, I know. But when you're done digging up the past, the home button is right there.
-        </motion.div>
-        
-        <motion.img 
-          src={archiveSticker} 
-          alt="Archive Character" 
-          initial={{ opacity: 0, x: -50, filter: 'grayscale(100%)' }}
-          animate={{ opacity: 1, x: 0, filter: 'grayscale(100%)' }}
-          transition={{ type: 'spring', stiffness: 200, delay: 0.2, filter: { duration: 0.3 } }}
-          whileHover={{ scale: 1.05, rotate: 2, filter: 'grayscale(0%)' }}
-          style={{
-            width: '280px',
-            objectFit: 'contain',
-            pointerEvents: 'auto',
-            cursor: 'pointer'
-          }}
-        />
+        <AnimatePresence>
+          {stickersEnabled && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, y: 50 }}
+              style={{ display: 'flex', alignItems: 'flex-end', gap: '24px' }}
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 20, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ type: 'spring', stiffness: 200, delay: 1.5 }}
+                className="mono"
+                style={{
+                  position: 'absolute',
+                  bottom: '220px',
+                  left: '150px',
+                  background: 'var(--bg-secondary)',
+                  color: 'var(--text-primary)',
+                  padding: '12px 16px',
+                  borderRadius: '16px 16px 16px 0px',
+                  border: '1px solid var(--border-subtle)',
+                  borderLeft: '3px solid var(--accent)',
+                  fontSize: '11px',
+                  lineHeight: 1.5,
+                  maxWidth: '200px',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+                  zIndex: 10,
+                  pointerEvents: 'none'
+                }}
+              >
+                Fascinating reading, I know. But when you're done digging up the past, the home button is right there.
+              </motion.div>
+              
+              <motion.img 
+                src={archiveSticker} 
+                alt="Archive Character" 
+                initial={{ opacity: 0, x: -50, filter: 'grayscale(100%)' }}
+                animate={{ opacity: 1, x: 0, filter: 'grayscale(100%)' }}
+                transition={{ type: 'spring', stiffness: 200, delay: 0.2, filter: { duration: 0.3 } }}
+                whileHover={{ scale: 1.05, rotate: 2, filter: 'grayscale(0%)' }}
+                style={{
+                  width: '280px',
+                  objectFit: 'contain',
+                  pointerEvents: 'auto',
+                  cursor: 'pointer'
+                }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
         {onGoHome && (
           <motion.button
             onClick={onGoHome}

@@ -81,27 +81,7 @@ export const LeftPopup = () => {
               fontStyle: 'italic'
             }}
           >
-            <button 
-              onClick={() => setIsVisible(false)}
-              style={{
-                position: 'absolute',
-                top: '-10px',
-                left: '-10px',
-                background: 'var(--bg-tertiary)',
-                border: '1px solid var(--border-subtle)',
-                color: 'var(--text-muted)',
-                borderRadius: '50%',
-                padding: '4px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
-              }}
-              aria-label="Dismiss"
-            >
-              <X size={12} />
-            </button>
+
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}

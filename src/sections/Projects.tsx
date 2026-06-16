@@ -23,11 +23,11 @@ const PROJECTS = [
   },
   {
     id: 'p3',
-    title: 'opencv-to-ascii',
-    description: 'OpenCV project that converts webcam live capture to ASCII art.',
-    longDescription: 'A real-time computer vision project that processes webcam video frames and converts them into dynamic ASCII art. Leverages OpenCV and Python for efficient image processing.',
-    tech: ['Python', 'OpenCV', 'ASCII Art', 'CV'],
-    links: { github: 'https://github.com/Hotaro26/opencv-to-ascii-live-art-' }
+    title: 'QuranReader',
+    description: 'A beautiful and minimalist open-source Quran reading application for Android.',
+    longDescription: 'An open-source Quran reading application built natively for Android. Designed with simplicity, focus, and a seamless user experience in mind for a distraction-free reading environment.',
+    tech: ['Kotlin', 'Android', 'Open Source'],
+    links: { github: 'https://github.com/Hotaro26/QuranReader' }
   },
   {
     id: 'p4',
