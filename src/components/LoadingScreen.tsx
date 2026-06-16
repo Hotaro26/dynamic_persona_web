@@ -129,6 +129,31 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
         }}
       />
 
+      <motion.div
+        className="loading-sticker"
+        initial={{ opacity: 0, scale: 0.9, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.8 }}
+        style={{
+          position: 'absolute',
+          left: 'clamp(260px, 22vw, 400px)',
+          bottom: 'clamp(400px, 60vh, 800px)',
+          background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
+          backdropFilter: 'blur(10px)',
+          border: `1px solid ${borderColor}`,
+          padding: '16px',
+          borderRadius: '16px',
+          borderBottomLeftRadius: '4px',
+          maxWidth: '220px',
+          zIndex: 2,
+          boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
+        }}
+      >
+        <span className="mono" style={{ fontSize: '12px', lineHeight: '1.5', color: textColor, display: 'block' }}>
+          Just a sec, fetching the assets for you...
+        </span>
+      </motion.div>
+
       <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
         <div style={{
           width: '320px',
