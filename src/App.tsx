@@ -7,15 +7,17 @@ import { WelcomePopup } from './components/WelcomePopup';
 import { LeftPopup } from './components/LeftPopup';
 import { ConfirmModal } from './components/ConfirmModal';
 import { LoadingScreen } from './components/LoadingScreen';
-import { Archive, ImageOff, Image } from 'lucide-react';
+import { Archive, ImageOff, Image, User } from 'lucide-react';
 import { Hero } from './sections/Hero';
 import { Skills } from './sections/Skills';
 import { Projects } from './sections/Projects';
 import { Blogs } from './sections/Blogs';
+import { About } from './sections/About';
 import { Experience } from './sections/Experience';
 import { Contact } from './sections/Contact';
 import TargetCursor from './components/TargetCursor';
 import FaultyTerminal from './components/FaultyTerminal';
+import { AboutPrompt } from './components/AboutPrompt';
 
 function App() {
   const [terminalEnabled, setTerminalEnabled] = useState(() => {
@@ -27,7 +29,7 @@ function App() {
   const [theme] = useState(() => {
     return localStorage.getItem('theme') || 'light';
   });
-  const [currentView, setCurrentView] = useState<'home' | 'archive'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'archive' | 'about'>('home');
   const [stickersEnabled, setStickersEnabled] = useState(() => {
     return typeof window !== 'undefined' ? window.innerWidth > 768 : true;
   });
@@ -97,6 +99,14 @@ function App() {
       <ScrollToTop />
       {stickersEnabled && <WelcomePopup />}
       {stickersEnabled && currentView === 'home' && <LeftPopup />}
+      <AboutPrompt 
+        currentView={currentView}
+        stickersEnabled={stickersEnabled}
+        onExplore={() => {
+          setCurrentView('about');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+      />
       <ConfirmModal 
         isOpen={isConfirmModalOpen} 
         onConfirm={() => {
@@ -166,6 +176,29 @@ function App() {
 
               <motion.button 
                 onClick={() => {
+                  setCurrentView('about');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                whileHover={{ scale: 1.1, color: 'var(--accent)' }}
+                className="cursor-target"
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: currentView === 'about' ? 'var(--accent)' : 'var(--text-primary)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  transition: 'color 0.2s ease',
+                  padding: '8px'
+                }}
+                title="About Me"
+              >
+                <User size={20} />
+              </motion.button>
+
+              <motion.button 
+                onClick={() => {
                   setCurrentView('archive');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
@@ -222,6 +255,16 @@ function App() {
             <Experience />
             <Contact />
           </>
+        ) : currentView === 'about' ? (
+          <div style={{ paddingTop: '64px', minHeight: '60vh' }}>
+            <About 
+              stickersEnabled={stickersEnabled}
+              onGoHome={() => {
+                setCurrentView('home');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }} 
+            />
+          </div>
         ) : (
           <div style={{ paddingTop: '64px', minHeight: '60vh' }}>
             <Blogs 

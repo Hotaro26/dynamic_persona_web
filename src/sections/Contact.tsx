@@ -50,6 +50,7 @@ export const Contact = () => {
 
       <div className="grid-span-12 tablet-span-12">
         <motion.div 
+          className="contact-card-container"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -144,9 +145,9 @@ export const Contact = () => {
                 Let's build something.
               </h3>
               <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', marginBottom: '48px', maxWidth: '500px', lineHeight: 1.8 }}>
-                <span style={{ backgroundColor: 'color-mix(in srgb, var(--accent) 15%, transparent)', color: 'var(--text-primary)', borderBottom: '2px solid var(--accent)', padding: '2px 6px', borderRadius: '4px 4px 0 0', fontWeight: 500 }}>Available</span> for{' '}
-                <span style={{ backgroundColor: 'color-mix(in srgb, var(--accent) 15%, transparent)', color: 'var(--text-primary)', borderBottom: '2px solid var(--accent)', padding: '2px 6px', borderRadius: '4px 4px 0 0', fontWeight: 500 }}>collaboration</span>,{' '}
-                <span style={{ backgroundColor: 'color-mix(in srgb, var(--accent) 15%, transparent)', color: 'var(--text-primary)', borderBottom: '2px solid var(--accent)', padding: '2px 6px', borderRadius: '4px 4px 0 0', fontWeight: 500 }}>hiring</span>, or just a friendly chat. Reach out across any of these platforms.
+                <span className="contact-keyword">Available</span> for{' '}
+                <span className="contact-keyword">collaboration</span>,{' '}
+                <span className="contact-keyword">hiring</span>, or just a friendly chat. Reach out across any of these platforms.
               </p>
               
               <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -207,6 +208,24 @@ export const Contact = () => {
             align-self: flex-end;
             align-items: flex-end;
           }
+        }
+
+        .contact-keyword {
+          display: inline-block;
+          background-color: color-mix(in srgb, var(--accent) 15%, transparent);
+          color: var(--text-primary);
+          border-bottom: 2px solid var(--accent);
+          padding: 2px 6px;
+          border-radius: 4px 4px 0 0;
+          font-weight: 500;
+          transition: background-color 0.25s ease, border-color 0.25s ease;
+        }
+
+        .contact-keyword:hover,
+        .contact-card-container:hover .contact-keyword {
+          background-color: rgba(244, 143, 177, 0.25) !important;
+          border-bottom-color: #f48fb1 !important;
+          cursor: pointer;
         }
       `}</style>
     </section>
