@@ -104,11 +104,9 @@ export const Contact = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.9 }}
                   transition={{ type: 'spring', stiffness: 200, delay: 0.8 }}
-                  className="mono"
+                  className="mono contact-dialog-box"
                   style={{
                     position: 'absolute',
-                    top: '10px',
-                    left: '-80px',
                     background: 'var(--bg-secondary)',
                     color: 'var(--text-primary)',
                     padding: '12px 16px',
@@ -215,7 +213,22 @@ export const Contact = () => {
         </motion.div>
       </div>
       <style>{`
-        @media (min-width: 768px) {
+        .contact-dialog-box {
+          top: 10px;
+          left: -80px;
+        }
+
+        @media (max-width: 900px) {
+          .contact-dialog-box {
+            top: -30px;
+            left: 0px;
+            border-radius: 24px 24px 24px 0px !important;
+            border-right: 1px solid var(--border-subtle) !important;
+            border-left: 3px solid var(--accent) !important;
+          }
+        }
+
+        @media (min-width: 1024px) {
           .contact-image-wrapper {
             margin-bottom: -60px;
             align-self: flex-end;
