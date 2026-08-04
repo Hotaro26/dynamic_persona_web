@@ -41,7 +41,7 @@ export const SupportPill = ({ onOpenChange }: { onOpenChange?: (isOpen: boolean)
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -50, opacity: 0 }}
-            whileHover={{ scale: 1.05, paddingRight: '20px' }}
+            whileHover={{ scale: 1.05, paddingRight: '20px', color: '#FFDD00' }}
             onClick={() => setIsOpen(true)}
             className="cursor-target"
             style={{
