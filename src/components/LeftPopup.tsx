@@ -12,7 +12,7 @@ const FACTS = [
   "Keep scrolling... the best parts are at the bottom."
 ];
 
-export const LeftPopup = () => {
+export const LeftPopup = ({ isHidden = false }: { isHidden?: boolean }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -34,8 +34,12 @@ export const LeftPopup = () => {
 
   return (
     <AnimatePresence>
-      {isVisible && (
-        <div style={{ position: 'fixed', bottom: '0px', left: '40px', zIndex: 90, display: 'flex', alignItems: 'flex-end', pointerEvents: 'none' }}>
+      {(isVisible && !isHidden) && (
+        <motion.div 
+          exit={{ y: 300, opacity: 0 }}
+          transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+          style={{ position: 'fixed', bottom: '0px', left: '40px', zIndex: 90, display: 'flex', alignItems: 'flex-end', pointerEvents: 'none' }}
+        >
           
           <AnimatePresence mode="wait">
             <motion.img 
@@ -94,7 +98,7 @@ export const LeftPopup = () => {
             </AnimatePresence>
           </motion.div>
 
-        </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );

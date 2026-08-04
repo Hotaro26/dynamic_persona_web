@@ -7,7 +7,7 @@ import { WelcomePopup } from './components/WelcomePopup';
 import { LeftPopup } from './components/LeftPopup';
 import { ConfirmModal } from './components/ConfirmModal';
 import { LoadingScreen } from './components/LoadingScreen';
-import { Archive, ImageOff, Image, User } from 'lucide-react';
+import { Archive, ImageOff, Image, User, Menu, X } from 'lucide-react';
 import { Hero } from './sections/Hero';
 import { Skills } from './sections/Skills';
 import { Projects } from './sections/Projects';
@@ -18,6 +18,7 @@ import { Contact } from './sections/Contact';
 import TargetCursor from './components/TargetCursor';
 import FaultyTerminal from './components/FaultyTerminal';
 import { AboutPrompt } from './components/AboutPrompt';
+import { SupportPill } from './components/SupportPill';
 
 function App() {
   const [terminalEnabled, setTerminalEnabled] = useState(() => {
@@ -35,6 +36,8 @@ function App() {
   });
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSupportPillOpen, setIsSupportPillOpen] = useState(false);
 
   const toggleStickers = () => {
     if (stickersEnabled) {
@@ -97,8 +100,9 @@ function App() {
         spinDuration={8}
       />
       <ScrollToTop />
+      <SupportPill onOpenChange={setIsSupportPillOpen} />
       {stickersEnabled && <WelcomePopup />}
-      {stickersEnabled && currentView === 'home' && <LeftPopup />}
+      {stickersEnabled && currentView === 'home' && <LeftPopup isHidden={isSupportPillOpen} />}
       <AboutPrompt 
         currentView={currentView}
         stickersEnabled={stickersEnabled}
@@ -134,7 +138,7 @@ function App() {
           width: '100%',
           alignItems: 'center'
         }}>
-          <div className="grid-span-3 tablet-span-4 mobile-span-12 logo-container" style={{ display: 'flex', alignItems: 'center', height: '80px' }}>
+          <div className="grid-span-3 tablet-span-4 mobile-span-12 logo-container" style={{ display: 'flex', alignItems: 'center', height: '80px', justifyContent: 'space-between', width: '100%' }}>
             <motion.span 
               onClick={() => setCurrentView('home')}
               whileHover={{ color: 'var(--accent)' }}
@@ -143,8 +147,25 @@ function App() {
             >
               hotaro
             </motion.span>
+            <button 
+              className="mobile-menu-toggle cursor-target"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              style={{ background: 'transparent', border: 'none', color: 'var(--text-primary)', cursor: 'pointer', position: 'relative', width: '24px', height: '24px' }}
+            >
+              <AnimatePresence mode="wait">
+                {isMobileMenuOpen ? (
+                  <motion.div key="close" initial={{ opacity: 0, rotate: -90, scale: 0.8 }} animate={{ opacity: 1, rotate: 0, scale: 1 }} exit={{ opacity: 0, rotate: 90, scale: 0.8 }} transition={{ duration: 0.2 }} style={{ display: 'flex' }}>
+                    <X size={24} />
+                  </motion.div>
+                ) : (
+                  <motion.div key="menu" initial={{ opacity: 0, rotate: 90, scale: 0.8 }} animate={{ opacity: 1, rotate: 0, scale: 1 }} exit={{ opacity: 0, rotate: -90, scale: 0.8 }} transition={{ duration: 0.2 }} style={{ display: 'flex' }}>
+                    <Menu size={24} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </button>
           </div>
-          <div className="grid-span-9 tablet-span-8 mobile-span-12 header-actions" style={{ 
+          <div className={`grid-span-9 tablet-span-8 mobile-span-12 header-actions ${isMobileMenuOpen ? 'mobile-open' : ''}`} style={{ 
             display: 'flex', 
             justifyContent: 'flex-end', 
             alignItems: 'center', 
@@ -177,6 +198,7 @@ function App() {
               <motion.button 
                 onClick={() => {
                   setCurrentView('about');
+                  setIsMobileMenuOpen(false);
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
                 whileHover={{ scale: 1.1, color: 'var(--accent)' }}
@@ -200,6 +222,7 @@ function App() {
               <motion.button 
                 onClick={() => {
                   setCurrentView('archive');
+                  setIsMobileMenuOpen(false);
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
                 whileHover={{ scale: 1.1, color: 'var(--accent)' }}
@@ -223,6 +246,7 @@ function App() {
             <motion.button 
               onClick={() => {
                 setCurrentView('home');
+                setIsMobileMenuOpen(false);
                 setTimeout(() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }), 100);
               }}
               whileHover={{ y: -2, background: 'var(--accent)', color: 'var(--bg-primary)' }}
