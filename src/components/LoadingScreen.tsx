@@ -11,6 +11,7 @@ import leftSticker2 from '../assets/left-sticker-2.png';
 import leftSticker3 from '../assets/left-sticker-3.png';
 import popupSticker from '../assets/popup-sticker.png';
 import loadingSticker from '../assets/loading-sticker.png';
+import kofiQrCode from '../assets/kofi_qr_code.png';
 
 const ASSETS_TO_PRELOAD = [
   confirmSticker,
@@ -22,7 +23,8 @@ const ASSETS_TO_PRELOAD = [
   leftSticker2,
   leftSticker3,
   popupSticker,
-  loadingSticker
+  loadingSticker,
+  kofiQrCode
 ];
 
 const LOGS = [
