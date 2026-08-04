@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, ArrowUpRight, Copy } from 'lucide-react';
 import { FaGithub, FaDiscord, FaPinterest } from 'react-icons/fa';
 import { TbBrandSpacehey } from 'react-icons/tb';
+import { SiBuymeacoffee, SiSubstack } from 'react-icons/si';
 import { useState, useEffect } from 'react';
 import contactSticker from '../assets/contact-sticker.png';
 import contactSticker2 from '../assets/contact-sticker-2.png';
@@ -205,6 +206,30 @@ export const Contact = () => {
                 >
                   <TbBrandSpacehey size={18} style={{ color: 'var(--accent)' }} />
                   <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>SpaceHey</span>
+                  <ArrowUpRight size={14} style={{ opacity: 0.5 }} />
+                </motion.a>
+
+                <motion.a 
+                  href="https://buymeacoffee.com/oi.hotaro"
+                  target="_blank" rel="noopener noreferrer"
+                  whileHover={{ y: -4, background: 'var(--bg-tertiary)', borderColor: 'var(--accent)' }}
+                  className="cursor-target"
+                  style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', textDecoration: 'none', color: 'var(--text-primary)', transition: 'all 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)' }}
+                >
+                  <SiBuymeacoffee size={18} style={{ color: 'var(--accent)' }} />
+                  <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>Buy Me a Coffee</span>
+                  <ArrowUpRight size={14} style={{ opacity: 0.5 }} />
+                </motion.a>
+
+                <motion.a 
+                  href="https://substack.com/@hotaro344?r=8kfre5&utm_campaign=profile&utm_medium=profile-page"
+                  target="_blank" rel="noopener noreferrer"
+                  whileHover={{ y: -4, background: 'var(--bg-tertiary)', borderColor: 'var(--accent)' }}
+                  className="cursor-target"
+                  style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', textDecoration: 'none', color: 'var(--text-primary)', transition: 'all 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)' }}
+                >
+                  <SiSubstack size={18} style={{ color: 'var(--accent)' }} />
+                  <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>Substack</span>
                   <ArrowUpRight size={14} style={{ opacity: 0.5 }} />
                 </motion.a>
               </div>
