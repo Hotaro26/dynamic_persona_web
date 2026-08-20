@@ -39,7 +39,7 @@ export const Contact = () => {
 
   const handleCopyDiscord = (e: React.MouseEvent) => {
     e.preventDefault();
-    navigator.clipboard.writeText('oi.hotaro');
+    navigator.clipboard.writeText('flawed_mango');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -181,7 +181,7 @@ export const Contact = () => {
                   style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', color: 'var(--text-primary)', transition: 'all 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)', cursor: 'pointer', fontFamily: 'inherit' }}
                 >
                   <FaDiscord size={18} style={{ color: 'var(--accent)' }} />
-                  <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>{copied ? 'Copied!' : 'oi.hotaro'}</span>
+                  <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>{copied ? 'Copied!' : 'flawed_mango'}</span>
                   <Copy size={14} style={{ opacity: 0.5 }} />
                 </motion.button>
                 
