@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, ArrowUpRight, Copy } from 'lucide-react';
+import { Mail, ArrowUpRight, Copy, Trash2, Skull } from 'lucide-react';
 import { FaGithub, FaDiscord, FaPinterest } from 'react-icons/fa';
 import { TbBrandSpacehey } from 'react-icons/tb';
 import { SiBuymeacoffee, SiSubstack } from 'react-icons/si';
@@ -20,6 +20,7 @@ const THOUGHTS = [
 
 export const Contact = () => {
   const [copied, setCopied] = useState(false);
+  const [showExtraLinks, setShowExtraLinks] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentThoughtIndex, setCurrentThoughtIndex] = useState(0);
 
@@ -63,7 +64,7 @@ export const Contact = () => {
             border: '1px solid var(--border-strong)',
             background: 'color-mix(in srgb, var(--bg-secondary) 40%, transparent)',
             backdropFilter: 'blur(20px)',
-            padding: '60px 32px',
+            padding: '60px 32px 96px 32px',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -150,12 +151,13 @@ export const Contact = () => {
                 <span className="contact-keyword">hiring</span>, or just a friendly chat. Reach out across any of these platforms.
               </p>
               
-              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
+              <motion.div layout style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <motion.a 
+                  layout
                   href="mailto:sakibreza035@gmail.com"
                   whileHover={{ y: -4, background: 'var(--bg-tertiary)', borderColor: 'var(--accent)' }}
                   className="cursor-target"
-                  style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', textDecoration: 'none', color: 'var(--text-primary)', transition: 'all 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)' }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', textDecoration: 'none', color: 'var(--text-primary)', transition: 'background 0.2s ease, border-color 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)' }}
                 >
                   <Mail size={18} style={{ color: 'var(--accent)' }} />
                   <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>Email</span>
@@ -163,11 +165,12 @@ export const Contact = () => {
                 </motion.a>
                 
                 <motion.a 
+                  layout
                   href="https://github.com/Hotaro26"
                   target="_blank" rel="noopener noreferrer"
                   whileHover={{ y: -4, background: 'var(--bg-tertiary)', borderColor: 'var(--accent)' }}
                   className="cursor-target"
-                  style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', textDecoration: 'none', color: 'var(--text-primary)', transition: 'all 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)' }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', textDecoration: 'none', color: 'var(--text-primary)', transition: 'background 0.2s ease, border-color 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)' }}
                 >
                   <FaGithub size={18} style={{ color: 'var(--accent)' }} />
                   <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>GitHub</span>
@@ -175,69 +178,161 @@ export const Contact = () => {
                 </motion.a>
                 
                 <motion.button 
+                  layout
                   onClick={handleCopyDiscord}
                   whileHover={{ y: -4, background: 'var(--bg-tertiary)', borderColor: 'var(--accent)' }}
                   className="cursor-target"
-                  style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', color: 'var(--text-primary)', transition: 'all 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)', cursor: 'pointer', fontFamily: 'inherit' }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', color: 'var(--text-primary)', transition: 'background 0.2s ease, border-color 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)', cursor: 'pointer', fontFamily: 'inherit' }}
                 >
                   <FaDiscord size={18} style={{ color: 'var(--accent)' }} />
                   <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>{copied ? 'Copied!' : 'flawed_mango'}</span>
                   <Copy size={14} style={{ opacity: 0.5 }} />
                 </motion.button>
-                
-                <motion.a 
-                  href="https://pinterest.com/Hotaro26"
-                  target="_blank" rel="noopener noreferrer"
-                  whileHover={{ y: -4, background: 'var(--bg-tertiary)', borderColor: 'var(--accent)' }}
-                  className="cursor-target"
-                  style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', textDecoration: 'none', color: 'var(--text-primary)', transition: 'all 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)' }}
-                >
-                  <FaPinterest size={18} style={{ color: 'var(--accent)' }} />
-                  <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>Pinterest</span>
-                  <ArrowUpRight size={14} style={{ opacity: 0.5 }} />
-                </motion.a>
-                
-                <motion.a 
-                  href="https://spacehey.com/hotaro"
-                  target="_blank" rel="noopener noreferrer"
-                  whileHover={{ y: -4, background: 'var(--bg-tertiary)', borderColor: 'var(--accent)' }}
-                  className="cursor-target"
-                  style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', textDecoration: 'none', color: 'var(--text-primary)', transition: 'all 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)' }}
-                >
-                  <TbBrandSpacehey size={18} style={{ color: 'var(--accent)' }} />
-                  <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>SpaceHey</span>
-                  <ArrowUpRight size={14} style={{ opacity: 0.5 }} />
-                </motion.a>
 
-                <motion.a 
-                  href="https://buymeacoffee.com/oi.hotaro"
-                  target="_blank" rel="noopener noreferrer"
-                  whileHover={{ y: -4, background: 'var(--bg-tertiary)', borderColor: 'var(--accent)' }}
-                  className="cursor-target"
-                  style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', textDecoration: 'none', color: 'var(--text-primary)', transition: 'all 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)' }}
-                >
-                  <SiBuymeacoffee size={18} style={{ color: 'var(--accent)' }} />
-                  <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>Buy Me a Coffee</span>
-                  <ArrowUpRight size={14} style={{ opacity: 0.5 }} />
-                </motion.a>
+                <AnimatePresence>
+                  {showExtraLinks && (
+                    <>
+                      <motion.a 
+                        layout
+                        initial={{ opacity: 0, scale: 0.8, filter: 'blur(4px)' }}
+                        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                        exit={{ opacity: 0, scale: 0.8, filter: 'blur(4px)' }}
+                        transition={{ duration: 0.2 }}
+                        href="https://pinterest.com/Hotaro26"
+                        target="_blank" rel="noopener noreferrer"
+                        whileHover={{ y: -4, background: 'var(--bg-tertiary)', borderColor: 'var(--accent)' }}
+                        className="cursor-target"
+                        style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', textDecoration: 'none', color: 'var(--text-primary)', transition: 'background 0.2s ease, border-color 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)', whiteSpace: 'nowrap' }}
+                      >
+                        <FaPinterest size={18} style={{ color: 'var(--accent)' }} />
+                        <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>Pinterest</span>
+                        <ArrowUpRight size={14} style={{ opacity: 0.5 }} />
+                      </motion.a>
+                      
+                      <motion.a 
+                        layout
+                        initial={{ opacity: 0, scale: 0.8, filter: 'blur(4px)' }}
+                        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                        exit={{ opacity: 0, scale: 0.8, filter: 'blur(4px)' }}
+                        transition={{ duration: 0.2, delay: 0.05 }}
+                        href="https://spacehey.com/hotaro"
+                        target="_blank" rel="noopener noreferrer"
+                        whileHover={{ y: -4, background: 'var(--bg-tertiary)', borderColor: 'var(--accent)' }}
+                        className="cursor-target"
+                        style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', textDecoration: 'none', color: 'var(--text-primary)', transition: 'background 0.2s ease, border-color 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)', whiteSpace: 'nowrap' }}
+                      >
+                        <TbBrandSpacehey size={18} style={{ color: 'var(--accent)' }} />
+                        <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>SpaceHey</span>
+                        <ArrowUpRight size={14} style={{ opacity: 0.5 }} />
+                      </motion.a>
 
-                <motion.a 
-                  href="https://substack.com/@hotaro344?r=8kfre5&utm_campaign=profile&utm_medium=profile-page"
-                  target="_blank" rel="noopener noreferrer"
-                  whileHover={{ y: -4, background: 'var(--bg-tertiary)', borderColor: 'var(--accent)' }}
-                  className="cursor-target"
-                  style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', textDecoration: 'none', color: 'var(--text-primary)', transition: 'all 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)' }}
-                >
-                  <SiSubstack size={18} style={{ color: 'var(--accent)' }} />
-                  <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>Substack</span>
-                  <ArrowUpRight size={14} style={{ opacity: 0.5 }} />
-                </motion.a>
-              </div>
+
+                      <motion.a 
+                        layout
+                        initial={{ opacity: 0, scale: 0.8, filter: 'blur(4px)' }}
+                        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                        exit={{ opacity: 0, scale: 0.8, filter: 'blur(4px)' }}
+                        transition={{ duration: 0.2, delay: 0.15 }}
+                        href="https://substack.com/@hotaro344?r=8kfre5&utm_campaign=profile&utm_medium=profile-page"
+                        target="_blank" rel="noopener noreferrer"
+                        whileHover={{ y: -4, background: 'var(--bg-tertiary)', borderColor: 'var(--accent)' }}
+                        className="cursor-target"
+                        style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', textDecoration: 'none', color: 'var(--text-primary)', transition: 'background 0.2s ease, border-color 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)', whiteSpace: 'nowrap' }}
+                      >
+                        <SiSubstack size={18} style={{ color: 'var(--accent)' }} />
+                        <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>Substack</span>
+                        <ArrowUpRight size={14} style={{ opacity: 0.5 }} />
+                      </motion.a>
+                    </>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             </div>
+          </div>
+          
+          <div className="graveyard-toggle">
+            <div className="graveyard-tooltip">
+              <Skull size={14} style={{ color: 'inherit' }} />
+              Graveyard
+            </div>
+            <button 
+              onClick={() => setShowExtraLinks(!showExtraLinks)}
+              className={`graveyard-btn ${showExtraLinks ? 'active' : ''}`}
+              title="Toggle Graveyard Links"
+            >
+              <Trash2 size={20} />
+            </button>
           </div>
         </motion.div>
       </div>
       <style>{`
+        .graveyard-toggle {
+          position: absolute;
+          bottom: 24px;
+          right: 24px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          z-index: 10;
+        }
+
+        .graveyard-tooltip {
+          position: absolute;
+          bottom: 100%;
+          margin-bottom: 12px;
+          background: var(--bg-secondary);
+          border: 1px solid var(--border-subtle);
+          border-radius: 12px;
+          padding: 8px 12px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: var(--text-primary);
+          font-size: 0.85rem;
+          font-weight: 500;
+          pointer-events: none;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+          white-space: nowrap;
+          opacity: 0;
+          transform: translateY(10px) scale(0.9);
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .graveyard-toggle:hover .graveyard-tooltip {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+
+        .graveyard-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 48px;
+          height: 48px;
+          color: var(--text-secondary);
+          border-radius: 100px;
+          border: 1px solid var(--border-subtle);
+          background: var(--bg-primary);
+          cursor: pointer;
+          font-family: inherit;
+          transition: all 0.2s ease;
+        }
+
+        .graveyard-toggle:hover .graveyard-btn,
+        .graveyard-btn.active {
+          background: var(--bg-tertiary);
+          border-color: var(--accent);
+          color: var(--accent);
+        }
+        
+        .graveyard-toggle:hover .graveyard-btn {
+          transform: scale(1.05);
+        }
+
+        .graveyard-btn:active {
+          transform: scale(0.95);
+        }
+
         .contact-dialog-box {
           top: 10px;
           left: -80px;
@@ -255,7 +350,7 @@ export const Contact = () => {
 
         @media (min-width: 1024px) {
           .contact-image-wrapper {
-            margin-bottom: -60px;
+            margin-bottom: -96px;
             align-self: flex-end;
             align-items: flex-end;
           }

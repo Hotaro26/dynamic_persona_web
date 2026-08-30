@@ -7,11 +7,11 @@ import DecryptedText from '../components/DecryptedText';
 const PROJECTS = [
   {
     id: 'p1',
-    title: 'seiko',
-    description: 'Material expressive YouTube media downloader app for Android.',
-    longDescription: 'A multi-platform media downloader built with Flutter/Dart. It features a modern Material You design and supports Android, Linux, Windows, and iOS. Focused on performance and a high-quality user experience.',
-    tech: ['Dart', 'Flutter', 'Android', 'Media'],
-    links: { github: 'https://github.com/Hotaro26/seiko' }
+    title: 'Mascot',
+    description: 'A <4 mb, Material 3 Expressive, alarm-focused clock app.',
+    longDescription: 'An ultra-lightweight (<4 mb) alarm clock app built with Kotlin for Android. It features a modern Material 3 Expressive design and is focused on definitely getting you out of bed.',
+    tech: ['Kotlin', 'Android', 'Material 3'],
+    links: { github: 'https://github.com/Hotaro26/Mascot' }
   },
   {
     id: 'p2',
