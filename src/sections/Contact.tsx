@@ -98,7 +98,7 @@ export const Contact = () => {
             zIndex: 1,
             width: '100%'
           }}>
-            <div className="contact-image-wrapper" style={{ flex: '1 1 320px', display: 'flex', justifyContent: 'center', position: 'relative' }}>
+            <div className="contact-image-wrapper" style={{ flex: '1 1 320px', minWidth: '300px', display: 'flex', justifyContent: 'center', position: 'relative' }}>
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`dialog-${currentThoughtIndex}`}
@@ -141,7 +141,7 @@ export const Contact = () => {
               </AnimatePresence>
             </div>
 
-            <div style={{ flex: '2 1 400px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+            <div style={{ flex: '2 1 400px', minWidth: '320px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
               <h3 style={{ marginBottom: '16px', fontSize: 'clamp(2rem, 6vw, 3rem)', fontWeight: 600, letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
                 Let's build something.
               </h3>

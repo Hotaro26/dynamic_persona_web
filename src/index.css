@@ -164,6 +164,12 @@ button:hover {
   .tablet-span-6 { grid-column: span 6 !important; }
 }
 
+@media (max-width: 1300px) {
+  .left-popup {
+    display: none !important;
+  }
+}
+
 @media (max-width: 768px) {
   .technical-grid {
     padding: calc(var(--grid-unit) * 2);

@@ -39,6 +39,7 @@ export const LeftPopup = ({ isHidden = false }: { isHidden?: boolean }) => {
           exit={{ y: 300, opacity: 0 }}
           transition={{ type: 'spring', damping: 25, stiffness: 200 }}
           style={{ position: 'fixed', bottom: '0px', left: '40px', zIndex: 90, display: 'flex', alignItems: 'flex-end', pointerEvents: 'none' }}
+          className="left-popup"
         >
           
           <AnimatePresence mode="wait">
