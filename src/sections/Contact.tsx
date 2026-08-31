@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, ArrowUpRight, Copy, Trash2, Skull } from 'lucide-react';
 import { FaGithub, FaDiscord, FaPinterest } from 'react-icons/fa';
 import { TbBrandSpacehey } from 'react-icons/tb';
-import { SiBuymeacoffee, SiSubstack } from 'react-icons/si';
+import { SiSubstack } from 'react-icons/si';
 import { useState, useEffect } from 'react';
 import contactSticker from '../assets/contact-sticker.png';
 import contactSticker2 from '../assets/contact-sticker-2.png';
