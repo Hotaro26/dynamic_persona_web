@@ -53,7 +53,8 @@ const ASCII_TEXT = `WELCOME                 TO               THE
  | | | |/ _ \\_   _|/ \\  |  _ \\ / _ \\ 
  | |_| | | | || | / _ \\ | |_) | | | |
  |  _  | |_| || |/ ___ \\|  _ <| |_| |
- |_| |_|\\___/ |_/_/   \\_\\_| \\_\\\\___/`;
+ |_| |_|\\___/ |_/_/   \\_\\_| \\_\\\\___/
+                                       VERSE`;
 
 export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [progress, setProgress] = useState(0);
@@ -197,10 +198,9 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
           justifyContent: 'center'
         }}>
           <pre className="mono" style={{ 
-            fontSize: 'clamp(14px, 2vw, 20px)', 
+            fontSize: 'clamp(8px, 3.5vw, 20px)', 
             color: textColor, 
-            whiteSpace: 'pre-wrap',
-            wordWrap: 'break-word',
+            whiteSpace: 'pre',
             textAlign: 'left',
             lineHeight: '1.2',
             textShadow: isDark ? '0 0 10px rgba(255,255,255,0.2)' : 'none',
