@@ -7,7 +7,7 @@ import { WelcomePopup } from './components/WelcomePopup';
 import { LeftPopup } from './components/LeftPopup';
 import { ConfirmModal } from './components/ConfirmModal';
 import { LoadingScreen } from './components/LoadingScreen';
-import { Archive, ImageOff, Image, User, Menu, X, Waves } from 'lucide-react';
+import { Archive, ImageOff, Image, User, Menu, X } from 'lucide-react';
 import { Hero } from './sections/Hero';
 import { Skills } from './sections/Skills';
 import { Projects } from './sections/Projects';
@@ -17,13 +17,10 @@ import { Experience } from './sections/Experience';
 import { Contact } from './sections/Contact';
 import TargetCursor from './components/TargetCursor';
 import FaultyTerminal from './components/FaultyTerminal';
-// @ts-ignore
-import ShapeWaves from './components/ShapeWaves';
 import { AboutPrompt } from './components/AboutPrompt';
 import { SupportPill } from './components/SupportPill';
 
 function App() {
-  const [wavesEnabled, setWavesEnabled] = useState(false);
   const [terminalEnabled, setTerminalEnabled] = useState(() => {
     return localStorage.getItem('terminal-bg') === 'true';
   });
@@ -98,23 +95,6 @@ function App() {
         </div>
       )}
       
-      {wavesEnabled && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: theme === 'dark' ? 0.3 : 0.5 }}>
-          <ShapeWaves
-            text=""
-            shapes="mixed"
-            cellSize={20}
-            dotSize={0.75}
-            color={accentColor}
-            hoverColor="#ffffff"
-            backgroundColor="transparent"
-            speed={1.5}
-            scale={1.2}
-            fade={0.5}
-            interactive={true}
-          />
-        </div>
-      )}
       <TargetCursor 
         targetSelector=".cursor-target, button, a, .border-box, .pixel-card" 
         spinDuration={8}
@@ -195,27 +175,6 @@ function App() {
             <AccentPicker />
             <ThemeToggle />
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-
-              <motion.button 
-                onClick={() => setWavesEnabled(!wavesEnabled)}
-                whileHover={{ scale: 1.1, color: 'var(--accent)' }}
-                className="cursor-target"
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: wavesEnabled ? 'var(--text-primary)' : 'var(--text-muted)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  transition: 'color 0.2s ease',
-                  padding: '8px'
-                }}
-                title={wavesEnabled ? "Disable Wave BG" : "Enable Wave BG"}
-              >
-                <Waves size={20} />
-              </motion.button>
-
               <motion.button 
                 onClick={toggleStickers}
                 whileHover={{ scale: 1.1, color: 'var(--accent)' }}
