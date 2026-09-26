@@ -7,7 +7,7 @@ import { WelcomePopup } from './components/WelcomePopup';
 import { LeftPopup } from './components/LeftPopup';
 import { ConfirmModal } from './components/ConfirmModal';
 import { LoadingScreen } from './components/LoadingScreen';
-import { Archive, ImageOff, Image, User, Menu, X } from 'lucide-react';
+import { Archive, ImageOff, Image, User, Menu, X, Waves } from 'lucide-react';
 import { Hero } from './sections/Hero';
 import { Skills } from './sections/Skills';
 import { Projects } from './sections/Projects';
@@ -17,6 +17,7 @@ import { Experience } from './sections/Experience';
 import { Contact } from './sections/Contact';
 import TargetCursor from './components/TargetCursor';
 import FaultyTerminal from './components/FaultyTerminal';
+// @ts-ignore
 import ShapeWaves from './components/ShapeWaves';
 import { AboutPrompt } from './components/AboutPrompt';
 import { SupportPill } from './components/SupportPill';
@@ -97,6 +98,23 @@ function App() {
         </div>
       )}
       
+      {wavesEnabled && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', opacity: theme === 'dark' ? 0.3 : 0.5 }}>
+          <ShapeWaves
+            text=""
+            shapes="mixed"
+            cellSize={20}
+            dotSize={0.75}
+            color={accentColor}
+            hoverColor="#ffffff"
+            backgroundColor="transparent"
+            speed={1.5}
+            scale={1.2}
+            fade={0.5}
+            interactive={true}
+          />
+        </div>
+      )}
       <TargetCursor 
         targetSelector=".cursor-target, button, a, .border-box, .pixel-card" 
         spinDuration={8}
