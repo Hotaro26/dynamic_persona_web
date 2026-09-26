@@ -27,21 +27,45 @@ const ASSETS_TO_PRELOAD = [
   kofiQrCode
 ];
 
-const LOGS = [
+
+const SYSTEM_LOGS = [
   "Mounting core systems...",
   "Loading stylistic assets...",
   "Initializing neural pathways...",
   "Compiling visual interface...",
-  "Establishing secure connection..."
+  "Establishing secure connection...",
+  "Allocating memory arrays...",
+  "Bypassing security protocols...",
+  "Loading localized string tables...",
+  "Connecting to distributed node...",
+  "Decrypting payload chunks...",
+  "Generating terrain mesh...",
+  "Executing startup script...",
+  "Fetching remote dependencies...",
+  "Verifying checksums...",
+  "Syncing with temporal database..."
 ];
+
+const ASCII_TEXT = `WELCOME                 TO               THE
+
+
+  _   _  ___ _____  _    ____   ___  
+ | | | |/ _ \\_   _|/ \\  |  _ \\ / _ \\ 
+ | |_| | | | || | / _ \\ | |_) | | | |
+ |  _  | |_| || |/ ___ \\|  _ <| |_| |
+ |_| |_|\\___/ |_/_/   \\_\\_| \\_\\\\___/`;
 
 export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
   const [progress, setProgress] = useState(0);
-  const [logIndex, setLogIndex] = useState(0);
   const [isDark, setIsDark] = useState(true);
+  const [displayedText, setDisplayedText] = useState('');
+  const [isDoneTyping, setIsDoneTyping] = useState(false);
+  const [cursorVisible, setCursorVisible] = useState(true);
+
+  const [backgroundLogs, setBackgroundLogs] = useState<string[]>([]);
+
 
   useEffect(() => {
-    // Detect OS theme and website theme automatically
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       setIsDark(savedTheme === 'dark');
@@ -52,8 +76,7 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
     let loadedCount = 0;
     const totalAssets = ASSETS_TO_PRELOAD.length;
     
-    // Ensure the cool TUI animation has time to play
-    const minLoadTime = new Promise(resolve => setTimeout(resolve, 2000));
+    const minLoadTime = new Promise(resolve => setTimeout(resolve, 3500));
 
     const loadImages = Promise.all(
       ASSETS_TO_PRELOAD.map((src) => {
@@ -81,18 +104,52 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
     });
   }, [onComplete]);
 
+  // Typing effect
   useEffect(() => {
-    if (progress > 20 && logIndex < 1) setLogIndex(1);
-    if (progress > 40 && logIndex < 2) setLogIndex(2);
-    if (progress > 60 && logIndex < 3) setLogIndex(3);
-    if (progress > 80 && logIndex < 4) setLogIndex(4);
-    if (progress >= 100 && logIndex < 5) setLogIndex(5);
-  }, [progress, logIndex]);
+    let index = 0;
+    const interval = setInterval(() => {
+      index += 2; // Type 2 chars at a time
+      if (index >= ASCII_TEXT.length) {
+        setDisplayedText(ASCII_TEXT);
+        setIsDoneTyping(true);
+        clearInterval(interval);
+      } else {
+        setDisplayedText(ASCII_TEXT.substring(0, index));
+      }
+    }, 15);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  
+  // Background logs effect
+  useEffect(() => {
+    if (!isDoneTyping) return;
+    
+    const logInterval = setInterval(() => {
+      const randomLog = SYSTEM_LOGS[Math.floor(Math.random() * SYSTEM_LOGS.length)];
+      const hexAddr = '0x' + Math.floor(Math.random()*16777215).toString(16).toUpperCase().padStart(6, '0');
+      
+      setBackgroundLogs(prev => {
+        const newLogs = [...prev, `[${hexAddr}] ${randomLog} [OK]`];
+        return newLogs.slice(-6); // Keep last 6 logs
+      });
+    }, 150);
+    
+    return () => clearInterval(logInterval);
+  }, [isDoneTyping]);
+
+  // Blinking cursor
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      setCursorVisible(v => !v);
+    }, 500);
+    return () => clearInterval(cursorInterval);
+  }, []);
 
   const bgColor = isDark ? '#0d0d0d' : '#f8f9fa';
   const textColor = isDark ? '#f8f9fa' : '#0d0d0d';
-  const mutedColor = isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)';
-  const borderColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+  
 
   return (
     <motion.div
@@ -131,76 +188,42 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
         }}
       />
 
-      <motion.div
-        className="loading-sticker"
-        initial={{ opacity: 0, scale: 0.9, y: 10 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.8 }}
-        style={{
-          position: 'absolute',
-          left: 'clamp(260px, 22vw, 400px)',
-          bottom: 'clamp(400px, 60vh, 800px)',
-          background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)',
-          backdropFilter: 'blur(10px)',
-          border: `1px solid ${borderColor}`,
-          padding: '16px',
-          borderRadius: '16px',
-          borderBottomLeftRadius: '4px',
-          maxWidth: '220px',
-          zIndex: 2,
-          boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
-        }}
-      >
-        <span className="mono" style={{ fontSize: '12px', lineHeight: '1.5', color: textColor, display: 'block' }}>
-          Just a sec, fetching the assets for you...
-        </span>
-      </motion.div>
-
-      <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+      <div style={{ position: 'relative', display: 'flex', alignItems: 'center', zIndex: 2 }}>
         <div style={{
-          width: '320px',
           padding: '24px',
-          border: `1px solid ${borderColor}`,
-          background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)',
-          backdropFilter: 'blur(10px)',
-          borderRadius: '8px',
-          zIndex: 2,
-          position: 'relative',
-          boxShadow: '0 20px 40px rgba(0,0,0,0.2)'
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center'
         }}>
-          <div className="mono" style={{ fontSize: '10px', color: mutedColor, borderBottom: `1px solid ${borderColor}`, paddingBottom: '8px', marginBottom: '16px', display: 'flex', justifyContent: 'space-between' }}>
-            <span>root@hotaro-os:~</span>
-            <span>[ SYSTEM_BOOT ]</span>
-          </div>
-
-          <div className="mono" style={{ fontSize: '11px', display: 'flex', flexDirection: 'column', gap: '8px', minHeight: '120px' }}>
-            {LOGS.slice(0, logIndex + 1).map((log, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, x: -5 }}
-                animate={{ opacity: 1, x: 0 }}
-              >
-                <span style={{ color: 'var(--accent)', marginRight: '8px' }}>&gt;</span>
-                {log}
-              </motion.div>
-            ))}
-            {progress >= 100 && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ color: 'var(--accent)', marginTop: '8px' }}>
-                ACCESS GRANTED.
-              </motion.div>
-            )}
-          </div>
+          <pre className="mono" style={{ 
+            fontSize: 'clamp(14px, 2vw, 20px)', 
+            color: textColor, 
+            whiteSpace: 'pre-wrap',
+            wordWrap: 'break-word',
+            textAlign: 'left',
+            lineHeight: '1.2',
+            textShadow: isDark ? '0 0 10px rgba(255,255,255,0.2)' : 'none',
+            maxWidth: '100vw',
+            overflow: 'hidden'
+          }}>
+            {displayedText}
+            <span style={{ opacity: cursorVisible ? 1 : 0 }}>█</span>
+          </pre>
           
-          <div style={{ marginTop: '24px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '8px' }}>
-              <span className="mono" style={{ fontSize: '10px', color: mutedColor }}>
-                PROGRESS
-              </span>
-              <span className="mono" style={{ fontSize: '12px', color: textColor, fontWeight: 600 }}>
-                {progress}%
-              </span>
+          <div style={{ 
+            marginTop: '32px', 
+            width: '100%', 
+            maxWidth: '400px',
+            opacity: isDoneTyping ? 1 : 0,
+            transition: 'opacity 0.5s ease',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}>
+            <div className="mono" style={{ fontSize: '12px', color: textColor, marginBottom: '8px' }}>
+              [ LOADING... {progress}% ]
             </div>
-            
             <div style={{ 
               height: '2px', 
               width: '100%', 
@@ -218,6 +241,30 @@ export const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
                 }}
               />
             </div>
+
+            <div style={{
+              marginTop: '16px',
+              width: '100%',
+              height: '80px',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
+              opacity: isDark ? 0.6 : 0.4
+            }}>
+              {backgroundLogs.map((log, i) => (
+                <motion.div
+                  key={i + log}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="mono"
+                  style={{ fontSize: '10px', color: textColor, marginBottom: '2px', textAlign: 'left', width: '100%' }}
+                >
+                  {log}
+                </motion.div>
+              ))}
+            </div>
+
           </div>
         </div>
       </div>
