@@ -210,7 +210,7 @@ const handleCopyDiscord = (e: React.MouseEvent) => {
 
                       <motion.a 
                         layout
-                        href="https://pinterest.com/Hotaro26"
+                        href="https://pin.it/6pwDten3K"
                         target="_blank" rel="noopener noreferrer"
                         whileHover={{ y: -4, background: 'var(--bg-tertiary)', borderColor: 'var(--accent)' }}
                         className="cursor-target"
