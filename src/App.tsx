@@ -17,10 +17,12 @@ import { Experience } from './sections/Experience';
 import { Contact } from './sections/Contact';
 import TargetCursor from './components/TargetCursor';
 import FaultyTerminal from './components/FaultyTerminal';
+import ShapeWaves from './components/ShapeWaves';
 import { AboutPrompt } from './components/AboutPrompt';
 import { SupportPill } from './components/SupportPill';
 
 function App() {
+  const [wavesEnabled, setWavesEnabled] = useState(false);
   const [terminalEnabled, setTerminalEnabled] = useState(() => {
     return localStorage.getItem('terminal-bg') === 'true';
   });
@@ -175,6 +177,27 @@ function App() {
             <AccentPicker />
             <ThemeToggle />
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+
+              <motion.button 
+                onClick={() => setWavesEnabled(!wavesEnabled)}
+                whileHover={{ scale: 1.1, color: 'var(--accent)' }}
+                className="cursor-target"
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: wavesEnabled ? 'var(--text-primary)' : 'var(--text-muted)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  transition: 'color 0.2s ease',
+                  padding: '8px'
+                }}
+                title={wavesEnabled ? "Disable Wave BG" : "Enable Wave BG"}
+              >
+                <Waves size={20} />
+              </motion.button>
+
               <motion.button 
                 onClick={toggleStickers}
                 whileHover={{ scale: 1.1, color: 'var(--accent)' }}
