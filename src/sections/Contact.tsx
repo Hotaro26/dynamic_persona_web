@@ -20,6 +20,7 @@ const THOUGHTS = [
 
 export const Contact = () => {
   const [copied, setCopied] = useState(false);
+  const [copiedAlt, setCopiedAlt] = useState(false);
   const [showExtraLinks, setShowExtraLinks] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentThoughtIndex, setCurrentThoughtIndex] = useState(0);
@@ -38,11 +39,18 @@ export const Contact = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleCopyDiscord = (e: React.MouseEvent) => {
+const handleCopyDiscord = (e: React.MouseEvent) => {
     e.preventDefault();
     navigator.clipboard.writeText('flawed_mango');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleCopyDiscordAlt = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigator.clipboard.writeText('forest.nnymph');
+    setCopiedAlt(true);
+    setTimeout(() => setCopiedAlt(false), 2000);
   };
 
   return (
@@ -188,16 +196,20 @@ export const Contact = () => {
                   <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>{copied ? 'Copied!' : 'flawed_mango'}</span>
                   <Copy size={14} style={{ opacity: 0.5 }} />
                 </motion.button>
+                <motion.button 
+                  layout
+                  onClick={handleCopyDiscordAlt}
+                  whileHover={{ y: -4, background: 'var(--bg-tertiary)', borderColor: 'var(--accent)' }}
+                  className="cursor-target"
+                  style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 28px', color: 'var(--text-primary)', transition: 'background 0.2s ease, border-color 0.2s ease', borderRadius: '100px', border: '1px solid var(--border-subtle)', background: 'var(--bg-primary)', cursor: 'pointer', fontFamily: 'inherit' }}
+                >
+                  <FaDiscord size={18} style={{ color: 'var(--accent)' }} />
+                  <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>{copiedAlt ? 'Copied!' : 'forest.nnymph'}</span>
+                  <Copy size={14} style={{ opacity: 0.5 }} />
+                </motion.button>
 
-                <AnimatePresence>
-                  {showExtraLinks && (
-                    <>
                       <motion.a 
                         layout
-                        initial={{ opacity: 0, scale: 0.8, filter: 'blur(4px)' }}
-                        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                        exit={{ opacity: 0, scale: 0.8, filter: 'blur(4px)' }}
-                        transition={{ duration: 0.2 }}
                         href="https://pinterest.com/Hotaro26"
                         target="_blank" rel="noopener noreferrer"
                         whileHover={{ y: -4, background: 'var(--bg-tertiary)', borderColor: 'var(--accent)' }}
@@ -208,6 +220,10 @@ export const Contact = () => {
                         <span style={{ fontWeight: 500, fontSize: '0.95rem' }}>Pinterest</span>
                         <ArrowUpRight size={14} style={{ opacity: 0.5 }} />
                       </motion.a>
+
+                <AnimatePresence>
+                  {showExtraLinks && (
+                    <>
                       
                       <motion.a 
                         layout
